@@ -1,0 +1,28 @@
+.feed{
+  overflow-x:hidden;
+  padding:20px;
+}
+
+.feed img{
+    width:100%;
+}
+
+.feed .image{
+  border-radius:10px;
+}
+
+.skeleton-img{
+  width: 100%;
+  height: 100px;
+}
+
+.feed-content-text  h3{
+  padding:4px 4px;  
+  font-size:16px;
+  color: #000;;
+}
+
+.feed-content h2{
+  padding-top:4px;
+  font-size:18px;
+}
