@@ -7,7 +7,7 @@ import {
 import { MdPlaylistAdd, MdOutlineMoreVert } from "react-icons/md";
 import { Avatar, Tooltip, message, notification } from "antd";
 import { useEffect, useState } from "react";
-import "./Playvideo.css";
+import "./Play.css";
 import { API_KEY } from "../../Data";
 import Recommended from "../Recommended/Recommended";
 

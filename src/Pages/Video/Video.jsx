@@ -1,4 +1,4 @@
-import Playvideo from '../../Components/Playvideo/Playvideo';
+import Play from "../../Components/Play/Play";
 import Recommended from "../../Components/Recommended/Recommended";
 import { useParams } from "react-router-dom";
 import "./Video.css";
