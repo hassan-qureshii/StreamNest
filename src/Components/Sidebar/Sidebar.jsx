@@ -1,98 +1,102 @@
-import { Layout, Menu, Avatar, Button } from 'antd'
-import { HiHome } from 'react-icons/hi'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { CgGames } from 'react-icons/cg'
-import { FaCarSide, FaMusic } from 'react-icons/fa'
-import { BiTennisBall, BiNews, BiFilm } from 'react-icons/bi'
-import { PiTelevision } from 'react-icons/pi'
-import { GrTechnology } from 'react-icons/gr'
-import { LiaBlogSolid } from 'react-icons/lia'
-import { MdPets } from 'react-icons/md'
-import { IoMdClose } from 'react-icons/io'  
-
-import jack from '../../assets/jack.png'
-import simon from '../../assets/simon.png'
-import tom from '../../assets/tom.png'
-import megan from '../../assets/megan.png'
-import cameron from '../../assets/cameron.png'
-
-import { useState } from 'react'
-import './Sidebar.css'
+import { Layout, Menu, Button, Dropdown } from "antd";
+import { HiHome } from "react-icons/hi";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoMdClose } from "react-icons/io";
+import { CgGames } from "react-icons/cg";
+import { FaCarSide, FaMusic } from "react-icons/fa";
+import { BiTennisBall, BiNews, BiFilm } from "react-icons/bi";
+import { PiTelevision } from "react-icons/pi";
+import { GrTechnology } from "react-icons/gr";
+import { LiaBlogSolid } from "react-icons/lia";
+import { MdPets } from "react-icons/md";
+import "./Sidebar.css";
+import { useState, useEffect } from "react";
 
 const Sidebar = ({ category, setCategory }) => {
-  const [collapsed, setCollapsed] = useState(true) 
-  const { Sider } = Layout
+  const { Sider } = Layout;
+  const [isMobile, setIsMobile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Categories 
+  // ✅ Categories
   const categories = [
-    { key: 'home', label: 'Home', icon: <HiHome />, value: 0 },
-    { key: 'games', label: 'Games', icon: <CgGames />, value: 20 },
-    { key: 'automobiles', label: 'Automobiles', icon: <FaCarSide />, value: 2 },
-    { key: 'sports', label: 'Sports', icon: <BiTennisBall />, value: 17 },
-    { key: 'entertainment', label: 'Entertainment', icon: <PiTelevision />, value: 24 },
-    { key: 'tech', label: 'Tech', icon: <GrTechnology />, value: 28 },
-    { key: 'blogs', label: 'Blogs', icon: <LiaBlogSolid />, value: 22 },
-    { key: 'music', label: 'Music', icon: <FaMusic />, value: 10 },
-    { key: 'news', label: 'News', icon: <BiNews />, value: 25 },
-    { key: 'films', label: 'Films', icon: <BiFilm />, value: 1 },
-    { key: 'pets', label: 'Pets & Animals', icon: <MdPets />, value: 15 }
-  ]
+    { key: "home", label: "Home", icon: <HiHome />, value: 0 },
+    { key: "games", label: "Games", icon: <CgGames />, value: 20 },
+    { key: "automobiles", label: "Automobiles", icon: <FaCarSide />, value: 2 },
+    { key: "sports", label: "Sports", icon: <BiTennisBall />, value: 17 },
+    { key: "entertainment", label: "Entertainment", icon: <PiTelevision />, value: 24 },
+    { key: "tech", label: "Tech", icon: <GrTechnology />, value: 28 },
+    { key: "blogs", label: "Blogs", icon: <LiaBlogSolid />, value: 22 },
+    { key: "music", label: "Music", icon: <FaMusic />, value: 10 },
+    { key: "news", label: "News", icon: <BiNews />, value: 25 },
+    { key: "films", label: "Films", icon: <BiFilm />, value: 1 },
+    { key: "pets", label: "Pets & Animals", icon: <MdPets />, value: 15 },
+  ];
 
-  // Subscribed users
-  const subscribedUsers = [
-    { key: 'jack', name: 'Jack', avatar: jack },
-    { key: 'simon', name: 'Simon', avatar: simon },
-    { key: 'tom', name: 'Tom', avatar: tom },
-    { key: 'megan', name: 'Megan', avatar: megan },
-    { key: 'cameron', name: 'Cameron', avatar: cameron }
-  ]
+  // ✅ Detect mobile screen
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setMenuOpen(false); // Close dropdown on resize
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ✅ Menu items (used in sidebar & dropdown)
+  const menuItems = categories.map(({ key, label, icon, value }) => ({
+    key,
+    label: (
+      <div
+        className={`menu-item ${category === value ? "active" : ""}`}
+        onClick={() => {
+          setCategory(value);
+          setMenuOpen(false); // Close dropdown when clicking a menu item
+        }}
+      >
+        <span className="icon">{icon}</span> {label}
+      </div>
+    ),
+  }));
 
   return (
     <>
-      {/* Toggle Button (Hamburger <-> Cross) */}
-      <Button
-        className='sidebar-toggle-btn'
-        icon={collapsed ? <GiHamburgerMenu /> : <IoMdClose />} 
-        onClick={() => setCollapsed(!collapsed)}
-      />
-
-      <div className='sidebar-container'>
-        <Sider
-          className={`sidebar ${collapsed ? 'collapsed' : 'open'}`} 
-          collapsed={collapsed}
-          collapsedWidth="0"
-          trigger={null}
-          breakpoint="md"
-          onBreakpoint={(broken) => setCollapsed(broken)}
-        >
-          <Menu mode='inline' selectedKeys={[String(category)]}>
-            {categories.map(({ key, label, icon, value }) => (
-              <Menu.Item
-                key={key}
-                icon={icon}
-                className={category === value ? 'active' : ''}
-                onClick={() => setCategory(value)}
-              >
-                {!collapsed && label}
-              </Menu.Item>
-            ))}
-          </Menu>
-
-          <hr />
-
-          <div className='subscribed'>
-            <Menu mode='vertical' className='sidebar-subscribed'>
-              {subscribedUsers.map(({ key, name, avatar }) => (
-                <Menu.Item key={key} icon={<Avatar src={avatar} />}>
-                  {!collapsed && name}
-                </Menu.Item>
-              ))}
-            </Menu>
-          </div>
-        </Sider>
-      </div>
+      {/* ✅ Mobile: Dropdown Menu */}
+      {isMobile ? (
+        <div className="mobile-menu">
+          <Dropdown
+            menu={{ items: menuItems }}
+            trigger={["click"]}
+            placement="bottomLeft"
+            open={menuOpen}
+            onOpenChange={(open) => setMenuOpen(open)}
+          >
+            <Button
+              className="sidebar-toggle-btn"
+              icon={menuOpen ? <IoMdClose /> : <GiHamburgerMenu />}
+              onClick={() => setMenuOpen(!menuOpen)}
+            />
+          </Dropdown>
+        </div>
+      ) : (
+        /* ✅ Desktop: Fixed Sidebar */
+        <div className="sidebar-container">
+          <Sider
+            className="sidebar"
+            collapsedWidth="0"
+            trigger={null}
+            breakpoint="md"
+          >
+            <Menu
+              mode="inline"
+              selectedKeys={[String(category)]}
+              items={menuItems}
+            />
+          </Sider>
+        </div>
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

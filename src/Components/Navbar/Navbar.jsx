@@ -1,33 +1,56 @@
 import './Navbar.css';
 import logo from '../../assets/logo.png';
-import { BiSearch, BiBell, BiUser } from 'react-icons/bi';
-import { FaUpload } from 'react-icons/fa';
-import { CgMore } from 'react-icons/cg';
-import { Avatar } from 'antd';
+import { BiSearch, BiUser } from 'react-icons/bi';
+import { MdNotificationsActive, MdOutlineVideoCall, MdOutlineMoreVert } from 'react-icons/md';
+import { Avatar, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Navbar = () => {
+  const [searchActive, setSearchActive] = useState(false);
+  const [query, setQuery] = useState('');
+
+  const handleSearchFocus = () => setSearchActive(true);
+  const handleSearchBlur = () => setSearchActive(false);
+
   return (
-    <nav className='flex-div'>
+    <nav className="navbar-container">
       {/* Left: Logo */}
-      <div className='nav-left flex-div'>
-        <Link to='/'><img src={logo} className='logo' alt='App Logo' /></Link>
+      <div className="nav-left">
+        <Link to="/">
+          <img src={logo} className="logo" alt="App Logo" />
+        </Link>
       </div>
 
-      {/* Middle: Search */}
-      <div className='nav-middle flex-div'>
-        <div className='search-box flex-div'>
-          <input type='text' placeholder='Search' />
-          <BiSearch className='search-icon' />
+      {/* Middle: Search Box */}
+      <div className={`nav-middle ${searchActive ? 'active' : ''}`}>
+        <div className="search-box">
+          <input
+            type="text"
+            value={query}
+            placeholder="Search..."
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={handleSearchFocus}
+            onBlur={handleSearchBlur}
+          />
+          <BiSearch className="search-icon" />
         </div>
       </div>
 
       {/* Right: Icons */}
-      <div className='nav-right flex-div'>
-        <CgMore className='icon' />
-        <BiBell className='icon' />
-        <FaUpload className='icon' />
-        <Avatar className='avatar' icon={<BiUser />} />
+      <div className="nav-right">
+        <Tooltip title="Upload video">
+          <MdOutlineVideoCall className="icon" />
+        </Tooltip>
+        <Tooltip title="Notifications">
+          <MdNotificationsActive className="icon" />
+        </Tooltip>
+        <Tooltip title="More options">
+          <MdOutlineMoreVert className="icon" />
+        </Tooltip>
+        <Tooltip title="User profile">
+          <Avatar className="avatar" icon={<BiUser />} />
+        </Tooltip>
       </div>
     </nav>
   );

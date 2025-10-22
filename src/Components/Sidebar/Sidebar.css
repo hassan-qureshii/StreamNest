@@ -1,6 +1,6 @@
 .sidebar {
   overflow: auto;
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -11,37 +11,58 @@
   cursor: pointer;
   z-index: 1000;
   transition: transform 0.3s ease-in-out;
+  scroll-behavior: smooth;
+  padding-top: 20px;
 }
 
-.sidebar.collapsed {
-  transform: translateX(-100%);
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.sidebar.open {
-  transform: translateX(0);
-}
-
-.subscribed {
-  margin-top: 10px;
+.menu-item.active {
+  color: #1677ff;
+  font-weight: 600;
 }
 
 .sidebar-toggle-btn {
   position: fixed;
   top: 15px;
   left: 15px;
-  z-index: 1100;
+  z-index: 1200;
   background-color: white;
   border: 1px solid #ddd;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.mobile-menu {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1200;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
 @media screen and (min-width: 768px) {
-  .sidebar-toggle-btn {
-    display: none; 
+  .mobile-menu {
+    display: none;
   }
 
   .sidebar {
-    transform: translateX(0); 
+    transform: translateX(0);
     position: sticky;
   }
 }
