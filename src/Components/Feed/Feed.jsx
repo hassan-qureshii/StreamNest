@@ -30,7 +30,6 @@ const Feed = ({ category }) => {
     fetchData();
   }, [category]);
 
-  // Format views
   const formatViews = (views) => {
     if (!views) return '0';
     const num = parseInt(views, 10);
@@ -38,8 +37,6 @@ const Feed = ({ category }) => {
     if (num >= 1_000) return (num / 1_000).toFixed(1) + 'K';
     return num.toString();
   };
-
-  // Format published date
   const formatDate = (dateString) => {
     const published = new Date(dateString);
     const now = new Date();

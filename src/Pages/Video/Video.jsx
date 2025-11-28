@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import "./Video.css";
 
 const Video = () => {
-  const { categoryId, videoId } = useParams(); // order matches /video/:categoryId/:videoId
+  const { categoryId, videoId } = useParams();
 
   return (
     <div className="play-container">
