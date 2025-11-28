@@ -28,7 +28,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ Format large numbers to K/M
   const formatCount = (num) => {
     if (!num) return "0";
     if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
@@ -36,7 +35,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
     return num.toString();
   };
 
-  // ✅ Fetch Video Data
   const fetchVideoData = async () => {
     try {
       const res = await fetch(
@@ -49,7 +47,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
     }
   };
 
-  // ✅ Fetch Channel & Comments
   const fetchOtherData = async () => {
     if (!videoData) return;
     try {
@@ -77,7 +74,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
     fetchOtherData();
   }, [videoData]);
 
-  // ✅ Handlers
   const handleLike = () => {
     setLiked(!liked);
     setDisliked(false);
@@ -128,7 +124,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
 
   return (
     <div className="play-video">
-      {/* ✅ YouTube Video Player */}
       <iframe
         src={`https://www.youtube.com/embed/${videoID}?autoplay=1`}
         frameBorder="0"
@@ -138,10 +133,8 @@ const PlayVideo = ({ videoID, categoryID }) => {
         title={videoData?.snippet?.title || "YouTube video"}
       ></iframe>
 
-      {/* ✅ Video Title */}
       <h3>{videoData ? videoData.snippet.title : "Loading video..."}</h3>
 
-      {/* ✅ Video Info (Views, Date, Like, Share, etc.) */}
       <div className="play-video-info">
         <span>
           {videoData
@@ -201,7 +194,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
 
       <hr />
 
-      {/* ✅ Channel (Publisher) Section */}
       <div className="publisher">
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <Avatar
@@ -229,7 +221,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
         </button>
       </div>
 
-      {/* ✅ Description + Comments */}
       <div className="vid-description">
         <p>
           {videoData
@@ -287,7 +278,6 @@ const PlayVideo = ({ videoID, categoryID }) => {
         )}
       </div>
 
-      {/* ✅ Show Recommended videos below only on mobile */}
       {isMobile && <Recommended categoryID={categoryID} />}
     </div>
   );
