@@ -1,15 +1,15 @@
-import Play from "../../Components/Play/Play";
+import PlayVideo from "../../Components/Play/Play";
 import Recommended from "../../Components/Recommended/Recommended";
 import { useParams } from "react-router-dom";
 import "./Video.css";
 
 const Video = () => {
-  const { videoId, categoryId } = useParams();
+  const { categoryId, videoId } = useParams(); // order matches /video/:categoryId/:videoId
 
   return (
     <div className="play-container">
-      <Playvideo videoID={videoId} />        {/* match component import */}
-      <Recommended category={categoryId} />  {/* prop name should match Recommended component */}
+      <PlayVideo videoID={videoId} categoryID={categoryId} />
+      <Recommended category={categoryId} />
     </div>
   );
 };

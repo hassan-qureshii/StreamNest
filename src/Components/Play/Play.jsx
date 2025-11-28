@@ -122,12 +122,13 @@ const PlayVideo = ({ videoID, categoryID }) => {
     if (visibleComments < commentData.length) {
       setVisibleComments((prev) => prev + 2);
     } else {
-      setVisibleComments(2); // Hide comments back
+      setVisibleComments(2); // Hide comments again
     }
   };
 
   return (
     <div className="play-video">
+      {/* ✅ YouTube Video Player */}
       <iframe
         src={`https://www.youtube.com/embed/${videoID}?autoplay=1`}
         frameBorder="0"
@@ -137,8 +138,10 @@ const PlayVideo = ({ videoID, categoryID }) => {
         title={videoData?.snippet?.title || "YouTube video"}
       ></iframe>
 
+      {/* ✅ Video Title */}
       <h3>{videoData ? videoData.snippet.title : "Loading video..."}</h3>
 
+      {/* ✅ Video Info (Views, Date, Like, Share, etc.) */}
       <div className="play-video-info">
         <span>
           {videoData
@@ -198,7 +201,7 @@ const PlayVideo = ({ videoID, categoryID }) => {
 
       <hr />
 
-      {/* ✅ Publisher Section */}
+      {/* ✅ Channel (Publisher) Section */}
       <div className="publisher">
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <Avatar
@@ -226,7 +229,7 @@ const PlayVideo = ({ videoID, categoryID }) => {
         </button>
       </div>
 
-      {/* ✅ Video Description + Comments */}
+      {/* ✅ Description + Comments */}
       <div className="vid-description">
         <p>
           {videoData
@@ -284,7 +287,7 @@ const PlayVideo = ({ videoID, categoryID }) => {
         )}
       </div>
 
-      {/* ✅ Recommended videos appear below for mobile */}
+      {/* ✅ Show Recommended videos below only on mobile */}
       {isMobile && <Recommended categoryID={categoryID} />}
     </div>
   );

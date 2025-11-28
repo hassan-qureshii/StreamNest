@@ -1,17 +1,21 @@
-import Navbar from './Components/Navbar/Navbar'
-import Home from './Pages/Home/Home'
-import Video from './Pages/Video/Video'
-import { Route, Routes } from 'react-router-dom'  
-const App = () => {
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home/Home";
+import Video from "./Pages/Video/Video";
+import Navbar from "./Components/Navbar/Navbar"; // import your Navbar component
+
+function App() {
   return (
-    <div>
+    <>
+      {/* Navbar will be shown on all pages */}
       <Navbar />
+
+      {/* Routing */}
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/Video/:categoryId/:videoId' element={<Video />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/video/:categoryId/:videoId" element={<Video />} />
       </Routes>
-    </div>
-  )
+    </>
+  );
 }
 
 export default App;

@@ -30,7 +30,7 @@ const Feed = ({ category }) => {
     fetchData();
   }, [category]);
 
-  // Format views (K, M)
+  // Format views
   const formatViews = (views) => {
     if (!views) return '0';
     const num = parseInt(views, 10);
@@ -39,7 +39,7 @@ const Feed = ({ category }) => {
     return num.toString();
   };
 
-  // Format published date (like YouTube)
+  // Format published date
   const formatDate = (dateString) => {
     const published = new Date(dateString);
     const now = new Date();
